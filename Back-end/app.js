@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import cookieParser from 'cookie-parser';
 import connectdb from "./database/db.js";
 import userRoute from './routes/userRoute.js';
@@ -7,7 +6,6 @@ import taskRoute from './routes/taskRoute.js';
 import scheduleRouter from "./routes/scheduleRoute.js"
 import cors from 'cors';
 import schedule from "./scheduleJobs/schedule.js";
-dotenv.config();
 
 const app = express();
 
@@ -29,5 +27,5 @@ app.use('/api/task', taskRoute);
 app.use('/api/job',scheduleRouter);
 connectdb();
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 800;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
