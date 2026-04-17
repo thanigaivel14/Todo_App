@@ -11,8 +11,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+const is_dev=process.env.NODE_ENV ==="development"
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: is_dev?'http://localhost:5173':process.env.CLIENT_URL  ,
   credentials: true
 }));
 
