@@ -8,7 +8,7 @@ const token = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1d'
 
 const cookieOptions = {
   httpOnly: true,
-  sameSite: 'lax',
+  sameSite: 'none',
   secure: process.env.NODE_ENV === 'production',
   maxAge: 24 * 60 * 60 * 1000
 };
