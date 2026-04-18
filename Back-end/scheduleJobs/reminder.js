@@ -2,9 +2,10 @@ import Todo from "../model/to_do_schema.js";
 import asyncHandler from "express-async-handler";
 import User from "../model/user.js"
 import Admin from "../utils/firebaseAdmin.js";
+import { getISTDate, getISTHour } from "../utils/helper.js";
 
 const reminder = asyncHandler(async (req, res) => {
-  const today = new Date().toISOString().split('T')[0];
+const today = getISTDate();
   const todos = await Todo.find({ status: false, date: { $lte: today }, priority: { $in: ["Medium", "High"] }, notification: { $in: ['Yes', 'yes'] } });
   // Get unique user IDs from the todos
   const userIds = [...new Set(todos.map(todo => todo.user))];
@@ -21,9 +22,8 @@ const reminder = asyncHandler(async (req, res) => {
     }
   });
 
-  const now = new Date();
-  const hours = now.getHours();
-  if (hours >= 23) {
+const istHours = getISTHour();
+  if (istHours >= 23) {
     await strikeUpdate()
   }
 
@@ -76,7 +76,8 @@ const strikeUpdate = async () => {
 
 const checkAndUpdate = async (user_Id) => {
   // ✅ Get tasks of this user only
-  const today = new Date().toISOString().split('T')[0];
+
+const today = getISTDate();
   const tasks = await Todo.find({ user: user_Id, date: { $lte: today } });
 
   if (tasks.length === 0) return;

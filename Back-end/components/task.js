@@ -3,6 +3,7 @@ import dailytask from "../model/dailySchema.js"
 import weeklytask from "../model/weekly.js"
 import monthlytask from "../model/monthly.js"
 import asyncHandler from 'express-async-handler';
+import { getISTDate, getISTHour } from "../utils/helper.js";
 // import { sendnotification } from "../service/notification.js";
 // Add task
 const add = asyncHandler(async (req, res) => {
@@ -39,8 +40,8 @@ const add = asyncHandler(async (req, res) => {
 // Fetch  user tasks
 const userTask = asyncHandler(async (req, res) => {
   const user = req.user._id;
-  const today = new Date().toISOString().split('T')[0];
-
+  const today = getISTDate();
+ console.log(getISTHour());
  const query = {
     user,
     $or: [
@@ -92,7 +93,7 @@ const editTask = asyncHandler(async (req, res) => {
 // Filter
 const filter = asyncHandler(async (req, res) => {
   const { status, priority } = req.query;
-  const today = new Date().toISOString().split('T')[0];
+  const today = getISTDate();
   let query = { user: req.user._id,date:today};
   if (status && status !== "All") query.status = status === "Done";
   if (priority && priority !== "All") query.priority = priority;
