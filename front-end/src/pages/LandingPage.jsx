@@ -4,17 +4,8 @@ import { useNavigate } from "react-router-dom";
 // ─── paste your actual image imports here ───
 // import homeBg from "../assets/homePage.webp";
 // import registerBg from "../assets/registerPage.webp";
-var path;
-if (import.meta.env.VITE_NODE_ENV=="development"){
-
- path = "/src/";
-}
-else{
-path ="/dist/"
-}
- const HOME_BG = `${path}assets/homePage.webp`;
-const REGISTER_BG = `${path}assets/registerPage.webp`;
-
+import HOME_BG from "../assets/homePage.webp";
+import REGISTER_BG from "../assets/registerPage.webp";
 const features = [
   {
     icon: "✦",
