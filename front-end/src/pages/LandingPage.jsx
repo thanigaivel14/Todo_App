@@ -4,9 +4,16 @@ import { useNavigate } from "react-router-dom";
 // ─── paste your actual image imports here ───
 // import homeBg from "../assets/homePage.webp";
 // import registerBg from "../assets/registerPage.webp";
+var path;
+if (import.meta.env.VITE_NODE_ENV=="development"){
 
-const HOME_BG = "/src/assets/homePage.webp";
-const REGISTER_BG = "/src/assets/registerPage.webp";
+ path = "/src/";
+}
+else{
+path ="/dist/"
+}
+ const HOME_BG = `${path}assets/homePage.webp`;
+const REGISTER_BG = `${path}assets/registerPage.webp`;
 
 const features = [
   {
