@@ -42,7 +42,7 @@ const Login = () => {
           <p>Sign in to manage your tasks</p>
         </div>
         <div className="auth-body">
-          {error && (
+          {error && ( 
             <div className="auth-error">
               <span>⚠️</span> {error}
             </div>

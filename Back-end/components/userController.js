@@ -66,58 +66,7 @@ const getMe = asyncHandler(async (req, res) => {
 });
 
 
-//chech strike
-const strikeCheck = asyncHandler(async (req, res) => {
-  const today = new Date().toISOString().split("T")[0];
 
-  const { _id, strike, strikeUpdatedDate } = req.user;
-
-  // ✅ Get tasks of this user only
-  let tasks;
-  
-   tasks = await Todo.find({ user: _id ,date:{$lte:today}});
-
-  if (tasks.length === 0) {
-    return res.json({ message: "No tasks" });
-  }
-
-  // ✅ Check if all tasks are done
-  const allDone = tasks.every((t) => t.status === true);
-
-  let update;
-
-  if (allDone) {
-    // ✅ Increase strike
-      if (strikeUpdatedDate === today) {
-   return  res.send({ message: "Already updated today" });
-  }
-    update = await User.findByIdAndUpdate(
-      _id,
-      {
-        $inc: { strike: 1 },
-        $set: { strikeUpdatedDate: today }
-      },
-      { new: true }
-    );
-  } else {
-    // ✅ Decrease strike (but not below 0)
-    if(strikeUpdatedDate ==='new'){
-     return  res.send({message:"complete first"})
-    }
-    update = await User.findByIdAndUpdate(
-      _id,
-      {
-        $set: { strike:0,strikeUpdatedDate: "new" },
-      },
-      { new: true }
-    );
-  }
-
- return  res.json({
-    strike: update.strike,
-    allDone
-  });
-});
 
 const tokenUpdate = asyncHandler(async(req,res)=>{
   const {token}= req.body;
@@ -131,4 +80,4 @@ const tokenUpdate = asyncHandler(async(req,res)=>{
   }
 
 })
-export { register, login, logout, getMe ,strikeCheck,tokenUpdate};
+export { register, login, logout, getMe ,tokenUpdate};

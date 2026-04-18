@@ -66,19 +66,7 @@ FCMtoken();
   const progress =
     list.length > 0 ? Math.round((doneCount / list.length) * 100) : 0;
 
-  useEffect(() => {
-    const updateStrike = async () => {
-      if(progress === 100)
-      {
 
-        try {
-        const res = await API.post("/user/strike");
-      } catch (error) {
-        console.log(error.message);
-      }}
-    }
-    updateStrike();
-  }, [progress]);
 
   const handleToggle = async (id) => {
     try {
